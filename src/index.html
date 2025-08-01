@@ -1,0 +1,209 @@
+<!-- 
+Rudimentary client to authenticate as MAS+Synapse Admin with MAS.
+Copyright (C) 2025  Twilight Sparkle
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>. 
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MAS Admin Auth</title>
+        <script src="./script.js"></script>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow-x: hidden;
+            }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .page-wrap {
+                flex: 1;
+                max-width: 700px;
+                margin: 20px auto 0 auto;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .site-footer {
+                padding: 10px;
+                background: lightgray;
+                text-align: end;
+                height: 55px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="page-wrap">
+            <h1>
+                Rudimentary client to authenticate as<br />
+                MAS+Synapse Admin with MAS
+            </h1>
+            <table>
+                <tr>
+                    <td>Synapse Domain:</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="server_domain"
+                            id="server_domain"
+                            placeholder="https://synapse.example.com"
+                            size="50"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button onclick="submit()">Start authentication</button>
+                    </td>
+                    <td>
+                        <span id="click_to_auth"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span id="auth_error"></span></td>
+                </tr>
+                <tr>
+                    <td>Access Token:</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="access_token"
+                            id="access_token"
+                            size="50"
+                            disabled
+                        />
+                    </td>
+                    <td>
+                        <button onclick="copyValue('access_token')">
+                            Copy
+                        </button>
+                    </td>
+                    <td>
+                        <span id="access_token_copied"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Expires in:</td>
+                    <td>
+                        <span id="expires"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p>
+                            <br />
+                            You can use the Refresh Token to renew your Access
+                            Token before it expires.<br />
+                            The Refresh Token in not stored in your browser, so
+                            if you wish to do this,<br />
+                            make sure you save both tokens and come back here
+                            later. The Client ID<br />
+                            and Token Endpoint is stored in your browser for
+                            your convenience.
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Refresh Token:</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="refresh_token"
+                            id="refresh_token"
+                            placeholder="mar_abcd"
+                            size="50"
+                        />
+                    </td>
+                    <td>
+                        <button onclick="copyValue('refresh_token')">
+                            Copy
+                        </button>
+                    </td>
+                    <td>
+                        <span id="refresh_token_copied"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Client ID:</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="client_id"
+                            id="client_id"
+                            placeholder="ABCD123"
+                            size="50"
+                        />
+                    </td>
+                    <td>
+                        <button onclick="copyValue('client_id')">Copy</button>
+                    </td>
+                    <td>
+                        <span id="client_id_copied"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Token Endpoint:</td>
+                    <td>
+                        <input
+                            type="text"
+                            name="token_endpoint"
+                            id="token_endpoint"
+                            placeholder="https://mas.example.com/oauth2/token"
+                            size="50"
+                        />
+                    </td>
+                    <td>
+                        <button onclick="copyValue('token_endpoint')">
+                            Copy
+                        </button>
+                    </td>
+                    <td>
+                        <span id="token_endpoint_copied"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button onclick="refresh()">
+                            Refresh access token
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><span id="refresh_error"></span></td>
+                </tr>
+            </table>
+        </div>
+        <footer class="site-footer">
+            &copy; 2025 Twilight Sparkle.<br />
+            Licensed under the GNU Affero General Public License version 3.<br />
+            Source on
+            <a
+                href="https://github.com/Twi1ightSparkle/mas-admin-auth/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >GitHub</a
+            >
+        </footer>
+    </body>
+</html>
