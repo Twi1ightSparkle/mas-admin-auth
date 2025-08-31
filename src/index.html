@@ -44,14 +44,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 width: 100%;
                 box-sizing: border-box;
             }
-
-            .site-footer {
-                padding: 10px;
-                background: lightgray;
-                text-align: end;
-                height: 55px;
-            }
         </style>
+        <link
+            rel="stylesheet"
+            href="https://twilightsparkle.dev/privacy/privacy.css"
+        />
     </head>
     <body>
         <div class="page-wrap">
@@ -194,16 +191,54 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
                 </tr>
             </table>
         </div>
-        <footer class="site-footer">
-            &copy; 2025 Twilight Sparkle.<br />
-            Licensed under the GNU Affero General Public License version 3.<br />
-            Source on
-            <a
-                href="https://github.com/Twi1ightSparkle/mas-admin-auth/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >GitHub</a
-            >
-        </footer>
+
+        <!-- Privacy policy & Analytics -->
+        <button id="openPrivacyModalBtn">About</button>
+        <div id="privacyModal" class="privacyModal">
+            <div class="privacyModalContent">
+                <span class="closePrivacyModalBtn" id="closePrivacyModal"
+                    >&times;</span
+                >
+                <p>
+                    &copy; 2025 Twilight Sparkle.<br />
+                    Licensed under the GNU Affero General Public License version
+                    3.<br />
+                    Source on
+                    <a
+                        href="https://github.com/Twi1ightSparkle/mas-admin-auth/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >GitHub</a
+                    >
+                </p>
+                <p>
+                    See my privacy policy
+                    <a href="https://twilightsparkle.dev/privacy/policy.html"
+                        >here</a
+                    >.
+                </p>
+                <div id="matomo-opt-out"></div>
+            </div>
+        </div>
+        <script src="https://twilightsparkle.dev/privacy/privacy.js"></script>
+        <script src="https://twilightsparkle.dev/privacy/opt-out.js"></script>
+        <script>
+            var _paq = (window._paq = window._paq || []);
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function () {
+                _paq.push([
+                    'setTrackerUrl',
+                    'https://analytics.twilightsparkle.dev/matomo.php',
+                ]);
+                _paq.push(['setSiteId', '4']);
+            })();
+        </script>
+        <script
+            async
+            defer
+            src="https://analytics.twilightsparkle.dev/matomo.js"
+        ></script>
+        <!-- Privacy policy & Analytics -->
     </body>
 </html>
